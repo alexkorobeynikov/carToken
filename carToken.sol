@@ -31,8 +31,6 @@ contract carToken {
             string color;
             uint power;
             uint price;
-            
-           
 
         }
 
@@ -40,43 +38,32 @@ contract carToken {
 
         mapping (uint=>uint) carToOwner;
         
-
-        
-
-        function createToken(string name, string color, uint power) public {
+        modifier checkOwner (uint tokenId) {
+            require(msg.pubkey() == carToOwner[tokenId], 101);
             tvm.accept();
+            _;
+        }
+
+        modifier checkName(string name) {
             for (uint256 i = 0; i < carArr.length; i++) {
                 require(carArr[i].name != name, 100);
             }
+            tvm.accept();
+            _;
+        }
+        
+
+        function createToken(string name, string color, uint power) public checkName(name) {
             carArr.push(Car(name, color, power, 0));
             uint arrKey = carArr.length - 1;
             carToOwner[arrKey] = msg.pubkey();
             
         }
 
-        function tokenSale(uint tokenId, uint price) public {
-            require(msg.pubkey() == carToOwner[tokenId], 101);
-            tvm.accept();
+        function tokenSale(uint tokenId, uint price) public checkOwner(tokenId) {
             carArr[tokenId].price = price;
 
         }
-
-
-
-
-        
-
-        
-
-
-
-
-            
-
-        
-
-
-
 
   
 }

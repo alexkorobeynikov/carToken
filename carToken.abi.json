@@ -28,17 +28,6 @@
 			],
 			"outputs": [
 			]
-		},
-		{
-			"name": "tokenInfo",
-			"inputs": [
-				{"name":"tokenId","type":"uint256"}
-			],
-			"outputs": [
-				{"name":"name","type":"string"},
-				{"name":"color","type":"string"},
-				{"name":"price","type":"uint256"}
-			]
 		}
 	],
 	"data": [
