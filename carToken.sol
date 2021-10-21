@@ -55,6 +55,7 @@ contract carToken {
         }
 
         function tokenSale(uint tokenId, uint price) public {
+            require(msg.pubkey() == carToOwner[tokenId], 101);
             tvm.accept();
             carArr[tokenId].price = price;
 
