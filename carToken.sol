@@ -39,22 +39,29 @@ contract carToken {
         Car[] carArr;
 
         mapping (uint=>uint) carToOwner;
+        
 
         
 
         function createToken(string name, string color, uint power) public {
+            tvm.accept();
             for (uint256 i = 0; i < carArr.length; i++) {
                 require(carArr[i].name != name, 100);
             }
             carArr.push(Car(name, color, power, 0));
             uint arrKey = carArr.length - 1;
             carToOwner[arrKey] = msg.pubkey();
-
-
-             
-             
             
         }
+
+        function tokenSale(uint tokenId, uint price) public {
+            tvm.accept();
+            carArr[tokenId].price = price;
+
+        }
+
+
+
 
         
 
